@@ -13,7 +13,11 @@ Rails.application.routes.draw do
 
   #users routes
   get  '/signup',  to: 'users#new'
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
 
   #sessions routes
   get    '/login',   to: 'sessions#new'
@@ -28,4 +32,7 @@ Rails.application.routes.draw do
 
   #microposts routes
   resources :microposts,          only: [:create, :destroy]
+
+  #relationships routes
+  resources :relationships,       only: [:create, :destroy]
 end
